@@ -10,5 +10,4 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.Login, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('task/update_status/<int:task_id>/', views.update_task_status, name='update_task_status'),
 ]

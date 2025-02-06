@@ -27,9 +27,12 @@
                             </div>
 
                             <!-- Completed Checkbox -->
-                            <div class="form-check mb-3">
-                                <input type="checkbox" name="completed" id="completed" class="form-check-input" {% if form.completed.value %}checked{% endif %}>
-                                <label for="completed" class="form-check-label">Completed</label>
+                            <div class="mb-3">
+                                <label for="complete" class="form-label">Status</label>
+                                <select name="complete" id="complete" class="form-select">
+                                    <option value="False" selected>Pending</option>
+                                    <option value="True">Completed</option>
+                                </select>
                             </div>
 
                             <!-- Submit Button -->

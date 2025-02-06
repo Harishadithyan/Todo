@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +25,13 @@ SECRET_KEY = "django-insecure-8hnuds+*_0$s+pldqyv)*jm30^jscrfou%*a4ew*-i%s)5%(20
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin"
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -74,10 +75,20 @@ WSGI_APPLICATION = "todo.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todo_r5yt',  
+        'USER': 'todo_r5yt_user',  
+        'PASSWORD': 'RzLbVO7cKx7W1UnBrBPtKjdqv0f1RsNg',  
+        'HOST': 'dpg-cuibre2n91rc73bhqcgg-a.oregon-postgres.render.com',  # Render-hosted database hostname
+        'PORT': '5432',  
     }
 }
 
@@ -118,6 +129,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_DIR = os.path.join(BASE_DIR,'static')
+
+MEDIA_URL ='media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

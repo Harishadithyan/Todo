@@ -2,14 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Tasks(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Make sure tasks are linked to a user
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
     create = models.DateTimeField(auto_now_add=True)
+    is_public = models.BooleanField(default=False)  # Add this line if you need it
 
     def __str__(self):
         return self.title
     
     class Meta:
-        ordering = ['complete']  # Uncompleted tasks appear first
+        ordering = ['complete']
+

@@ -14,18 +14,15 @@ def TaskList(request):
     if request.user.is_authenticated:
         user_id = request.user.id
         tasks = Tasks.objects.filter(user=request.user)
-        context = {
-            'user_id': user_id,
-            'tasks': tasks,
-        }
     else:
         user_id = None
-        tasks = Tasks.objects.filter(is_public=True)  # Assuming you have a field `is_public` for public tasks
-        context = {
-            'user_id': user_id,
-            'tasks': tasks,
-        }
-
+        tasks = Tasks.objects.filter(is_public=True)  # Filter public tasks for unauthenticated users
+    
+    context = {
+        'user_id': user_id,
+        'tasks': tasks,
+    }
+    
     return render(request, 'pages/task.html', context)
 
 
@@ -36,9 +33,9 @@ def CreateList(request):
         form = CreateForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.user  # Assign the logged-in user to the task
+            task.user = request.user  
             task.save()
-            return redirect('task')  # Redirect to task list after saving
+            return redirect('task')  
     return render(request, 'pages/create.html', {'form': form})
 
 @login_required
@@ -125,13 +122,3 @@ def logout_view(request):
     return redirect('login')
 
 
-def update_task_status(request, task_id):
-    task = get_object_or_404(Tasks, id=task_id)
-    
-    # Check if the form has been submitted to change the task's status
-    if request.method == 'POST':
-        # Toggle the task's completion status
-        task.complete = not task.complete
-        task.save()  # Save the updated task
-    
-    return redirect('task_list')  # Redirect back to the task list view
